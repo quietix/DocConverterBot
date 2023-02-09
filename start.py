@@ -21,6 +21,7 @@ def handle(msg):
     file_service.record_update(msg)
     interaction_handler.handle_interaction(msg)
 
+
 MessageLoop(bot, handle).run_as_thread()
 
 while 1:
