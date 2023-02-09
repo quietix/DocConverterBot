@@ -20,11 +20,6 @@ data_extractor = dxtr.Data_extractor()
 def handle(msg):
     file_service.record_update(msg)
     interaction_handler.handle_interaction(msg)
-    # TODO:
-    # 1) redo.gitignore
-    # 2) creater.env.example and fill
-    # with structure of.env
-    # 3) upgrade bot interaction
 
 
 MessageLoop(bot, handle).run_as_thread()
