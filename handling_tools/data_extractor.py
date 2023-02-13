@@ -34,3 +34,7 @@ class Data_extractor:
     def get_message_id_fast(self, msg):
         return msg['from']['id']
 
+
+    def msg_is_pdf(self, msg):
+        pass
+

@@ -34,18 +34,31 @@ class File_service:
 
 
     def record_update(self, msg):
-        with open(dotenv.dotenv_values('.env')['JSON_DATA_PATH'], 'r') as f:
-            data_list: list = json.load(f)
+        if os.path.exists(dotenv.dotenv_values('.env')['JSON_DATA_PATH']):
+            with open(dotenv.dotenv_values('.env')['JSON_DATA_PATH'], 'r') as f:
+                data_list: list = json.load(f)
 
-        data_list.append(msg)
+            data_list.append(msg)
 
-        with open(dotenv.dotenv_values('.env')['JSON_DATA_PATH'], 'w') as f:
-            json.dump(data_list, f, indent=4)
+            with open(dotenv.dotenv_values('.env')['JSON_DATA_PATH'], 'w') as f:
+                json.dump(data_list, f, indent=4)
 
-        try:
-            self.clean_data_file()
-        except:
-            self.full_data_clean()
+            try:
+                self.clean_data_file()
+            except:
+                self.full_data_clean()
+        else:
+            data_list: list = []
+
+            data_list.append(msg)
+
+            with open(dotenv.dotenv_values('.env')['JSON_DATA_PATH'], 'w') as f:
+                json.dump(data_list, f, indent=4)
+
+            try:
+                self.clean_data_file()
+            except:
+                self.full_data_clean()
 
 
     def get_last_command(self, user_id):
@@ -77,6 +90,8 @@ class File_service:
     def download_photo_and_create_photo_list(self, user_id):
         bot = telepot.Bot(dotenv.dotenv_values('.env')['TOKEN'])
         data_extractor = dxtr.Data_extractor()
+        if not os.path.exists(downloads_path):
+            os.mkdir(dotenv.dotenv_values('.env')['DOWNLOADS_PATH'])
         with open(dotenv.dotenv_values('.env')['JSON_DATA_PATH'], 'r') as rd:
             data_list = json.load(rd)
             data_list.reverse()
