@@ -1,6 +1,4 @@
 import time
-
-import dotenv
 import telepot
 from telepot.loop import MessageLoop
 from handling_tools import response as res
