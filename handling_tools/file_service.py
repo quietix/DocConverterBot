@@ -167,19 +167,3 @@ class File_service:
                             return data_list[i+1]['text']
 
         return dotenv.dotenv_values('.env')['LAST_NON_COMMAND_NOT_FOUND_ERROR_CODE']
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
