@@ -175,3 +175,5 @@ poetry.toml
 downloads/
 data.json
 .idea/
+# Local Netlify folder
+.netlify
