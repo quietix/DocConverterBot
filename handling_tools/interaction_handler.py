@@ -57,11 +57,7 @@ class Interaction_handler:
                 photo_list = file_service.create_photo_list_from_existing_files_in_directory(user_id)
                 auto_file_name: str = (str)(user_id) + '-' + (str)(time.strftime("%Y%m%d-%H%M%S"))
                 pdf_path = file_service.create_pdf_from_photo_list(user_id, photo_list, auto_file_name)
-                zip_path, zipObj = file_service.push_into_zip(pdf_path, user_id)
-
-                response.send_document(chat_id, f'{auto_file_name}.pdf', zipObj)
-                zipObj.close()
-
+                bot.sendDocument(chat_id, document=open(pdf_path, 'rb'))
                 file_service.delete_directory(user_id)
                 response.response_with_reply_keyboard_when_pdf_is_sent(chat_id)
 
@@ -79,16 +75,5 @@ class Interaction_handler:
                 photo_list = file_service.create_photo_list_from_existing_files_in_directory(user_id)
                 file_name = file_service.get_last_non_command_message_text(user_id)
                 pdf_path = file_service.create_pdf_from_photo_list(user_id, photo_list, file_name)
-                zip_path, zipObj = file_service.push_into_zip(pdf_path, user_id)
-
-                # bot.sendDocument(chat_id, open(zip_path))
-                response.send_document(chat_id, f'{file_name}.pdf', zipObj)
-                zipObj.close()
-
-                file_service.delete_directory(user_id)
+                bot.sendDocument(chat_id, document=open(pdf_path, 'rb'))
                 response.response_with_reply_keyboard_when_pdf_is_sent(chat_id)
-
-
-
-
-

@@ -5,7 +5,6 @@ import telepot
 from handling_tools import data_extractor as dxtr
 from PIL import Image, ImageOps
 import os
-from zipfile import ZipFile
 
 
 downloads_path = dotenv.dotenv_values('.env')['DOWNLOADS_PATH']
@@ -136,16 +135,6 @@ class File_service:
                            append_images=image_list[1:])
 
         return f'{downloads_path}\\{user_id}\\{file_name}.pdf'
-
-
-    def push_into_zip(self, file_path, user_id):
-        file_name = os.path.basename(file_path)
-        zip_path = f'{downloads_path}\\{user_id}\\{os.path.splitext(file_name)[0]}.zip'
-
-        zipObj = ZipFile(zip_path, 'w')
-        zipObj.write(file_path, os.path.basename(file_path))
-
-        return zip_path, zipObj
 
 
     def delete_directory(self, user_id):

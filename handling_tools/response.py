@@ -1,7 +1,6 @@
 import dotenv
 from telepot.namedtuple import KeyboardButton, InlineKeyboardButton, ReplyKeyboardMarkup, ReplyKeyboardRemove
 import telepot
-from zipfile import ZipFile
 
 
 bot = telepot.Bot(dotenv.dotenv_values('.env')['TOKEN'])
@@ -9,10 +8,6 @@ bot = telepot.Bot(dotenv.dotenv_values('.env')['TOKEN'])
 class Response:
     def send_message(self, chat_id, text):
         bot.sendMessage(chat_id, text)
-
-
-    def send_document(self, chat_id, file_name, zipObj: ZipFile):
-        bot.sendDocument(chat_id, zipObj.open(file_name, mode='r'))
 
 
     def delete_reply_keyboard(self, chat_id, text):
