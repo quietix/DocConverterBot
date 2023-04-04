@@ -58,7 +58,9 @@ class Interaction_handler:
                 auto_file_name: str = (str)(user_id) + '-' + (str)(time.strftime("%Y%m%d-%H%M%S"))
                 pdf_path = file_service.create_pdf_from_photo_list(user_id, photo_list, auto_file_name)
                 bot.sendDocument(chat_id, document=open(pdf_path, 'rb'))
+
                 file_service.delete_directory(user_id)
+
                 response.response_with_reply_keyboard_when_pdf_is_sent(chat_id)
 
             elif msg_text == "Продовжити створення":
@@ -76,4 +78,7 @@ class Interaction_handler:
                 file_name = file_service.get_last_non_command_message_text(user_id)
                 pdf_path = file_service.create_pdf_from_photo_list(user_id, photo_list, file_name)
                 bot.sendDocument(chat_id, document=open(pdf_path, 'rb'))
+
+                file_service.delete_directory(user_id)
+
                 response.response_with_reply_keyboard_when_pdf_is_sent(chat_id)

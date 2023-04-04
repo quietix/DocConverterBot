@@ -4,7 +4,7 @@ import dotenv
 import telepot
 from handling_tools import data_extractor as dxtr
 from PIL import Image, ImageOps
-import os
+import os, glob
 
 
 downloads_path = dotenv.dotenv_values('.env')['DOWNLOADS_PATH']
