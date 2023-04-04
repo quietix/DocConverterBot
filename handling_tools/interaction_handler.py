@@ -42,7 +42,7 @@ class Interaction_handler:
                 response.response_with_reply_keyboard_when_waiting_photos(chat_id)
 
             elif msg_text == "Створити pdf":
-                photo_list = file_service.download_photo_and_create_photo_list(user_id)
+                photo_list = file_service.download_photo(user_id)
                 if len(photo_list) <= 0:
                     response.response_with_reply_keyboard_when_waiting_photos_state_2(chat_id)
                 else:
@@ -81,6 +81,7 @@ class Interaction_handler:
                 pdf_path = file_service.create_pdf_from_photo_list(user_id, photo_list, file_name)
                 zip_path, zipObj = file_service.push_into_zip(pdf_path, user_id)
 
+                # bot.sendDocument(chat_id, open(zip_path))
                 response.send_document(chat_id, f'{file_name}.pdf', zipObj)
                 zipObj.close()
 

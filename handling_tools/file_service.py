@@ -87,7 +87,7 @@ class File_service:
         return photo_list
 
 
-    def download_photo_and_create_photo_list(self, user_id):
+    def download_photo(self, user_id):
         bot = telepot.Bot(dotenv.dotenv_values('.env')['TOKEN'])
         data_extractor = dxtr.Data_extractor()
         if not os.path.exists(downloads_path):
