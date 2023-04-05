@@ -139,7 +139,7 @@ class File_service:
 
     def delete_directory(self, user_id):
         if os.path.exists(f'{downloads_path}\\{user_id}'):
-            shutil.rmtree(f'{downloads_path}\\{user_id}')
+            shutil.rmtree(f'{downloads_path}\\{user_id}\\')
 
 
     def get_last_non_command_message_text(self, user_id):
