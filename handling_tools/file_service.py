@@ -78,8 +78,8 @@ class File_service:
         photo_list = []
         i = 1
         while 1:
-            if os.path.exists(f'{downloads_path}\\{user_id}\\image{i}.jpg'):
-                photo_list.append(f'{downloads_path}\\{user_id}\\image{i}.jpg')
+            if os.path.exists(f'{downloads_path}/{user_id}/image{i}.jpg'):
+                photo_list.append(f'{downloads_path}/{user_id}/image{i}.jpg')
                 i += 1
             else:
                 break
@@ -106,14 +106,14 @@ class File_service:
 
                     else:
                         if content_type == 'photo':
-                            if not os.path.exists(f'{downloads_path}\\{user_id}'):
-                                os.mkdir(f'{downloads_path}\\{user_id}')
+                            if not os.path.exists(f'{downloads_path}/{user_id}'):
+                                os.mkdir(f'{downloads_path}/{user_id}')
                             array = data_list[i]['photo']
                             len1 = len(array)
                             dict1: dict = data_list[i]
                             file_id = dict1['photo'][len1 - 1]['file_id']
                             file_name = f'image{counter}.jpg'
-                            file_path = f'{downloads_path}\\{user_id}\\{file_name}'
+                            file_path = f'{downloads_path}/{user_id}/{file_name}'
                             counter += 1
                             photos_list.append(file_path)
                             bot.download_file(file_id, file_path)
@@ -127,19 +127,19 @@ class File_service:
         image_list = []
 
         for i in range(photos_count - 1, -1, -1):
-            image = Image.open(f'{downloads_path}\\{user_id}\\image{i + 1}.jpg')
+            image = Image.open(f'{downloads_path}/{user_id}/image{i + 1}.jpg')
             image = ImageOps.exif_transpose(image)
             image_list.append(image)
 
-        image_list[0].save(f'{downloads_path}\\{user_id}\\{file_name}.pdf', resolution=100.0, save_all=True,
+        image_list[0].save(f'{downloads_path}/{user_id}/{file_name}.pdf', resolution=100.0, save_all=True,
                            append_images=image_list[1:])
 
-        return f'{downloads_path}\\{user_id}\\{file_name}.pdf'
+        return f'{downloads_path}/{user_id}/{file_name}.pdf'
 
 
     def delete_directory(self, user_id):
-        if os.path.exists(f'{downloads_path}\\{user_id}'):
-            shutil.rmtree(f'{downloads_path}\\{user_id}\\')
+        if os.path.exists(f'{downloads_path}/{user_id}'):
+            shutil.rmtree(f'{downloads_path}/{user_id}/')
 
 
     def get_last_non_command_message_text(self, user_id):

@@ -1,3 +1,5 @@
+import os
+import shutil
 import time
 import telepot
 from telepot.loop import MessageLoop
