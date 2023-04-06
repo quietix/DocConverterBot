@@ -7,9 +7,6 @@ from handling_tools import interaction_handler as ih
 from handling_tools import data_extractor as dxtr
 import dotenv
 
-import os
-import shutil
-
 dotenv.load_dotenv()
 bot = telepot.Bot(dotenv.dotenv_values('.env')['TOKEN'])
 
@@ -21,7 +18,6 @@ data_extractor = dxtr.Data_extractor()
 def handle(msg):
     file_service.record_update(msg)
     interaction_handler.handle_interaction(msg)
-
 
 
 MessageLoop(bot, handle).run_as_thread()
