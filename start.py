@@ -8,7 +8,7 @@ from handling_tools import file_service as fl
 from handling_tools import interaction_handler as ih
 from handling_tools import data_extractor as dxtr
 import dotenv
-#asss
+#asssasadsasdad
 dotenv.load_dotenv()
 bot = telepot.Bot(dotenv.dotenv_values('.env')['TOKEN'])
 
