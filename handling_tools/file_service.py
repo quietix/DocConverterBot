@@ -42,6 +42,7 @@ class File_service:
             with open(dotenv.dotenv_values('.env')['JSON_DATA_PATH'], 'w') as f:
                 json.dump(data_list, f, indent=4)
 
+            #TODO cleanup after conducting cleanup
             try:
                 self.clean_data_file()
             except:
@@ -54,6 +55,7 @@ class File_service:
             with open(dotenv.dotenv_values('.env')['JSON_DATA_PATH'], 'w') as f:
                 json.dump(data_list, f, indent=4)
 
+            #TODO cleanup after conducting cleanup
             try:
                 self.clean_data_file()
             except:
