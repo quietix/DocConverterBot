@@ -68,6 +68,7 @@ class Interaction_handler:
 
             elif msg_text == "Завершити сеанс":
                 response.delete_reply_keyboard(chat_id, "Сеанс створення pdf завершено.")
+                file_service.clear_data_from_user(user_id)
 
             elif msg_text == "Моя назва":
                 response.delete_reply_keyboard(chat_id, "Введіть назву pdf. Коли буде кінцевий варіант, натисніть /ready")

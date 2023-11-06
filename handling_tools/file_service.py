@@ -6,8 +6,8 @@ from handling_tools import data_extractor as dxtr
 from PIL import Image, ImageOps
 import os, glob
 
-
 downloads_path = dotenv.dotenv_values('.env')['DOWNLOADS_PATH']
+
 
 class File_service:
 
@@ -18,7 +18,6 @@ class File_service:
 
         with open(dotenv.dotenv_values('.env')['JSON_DATA_PATH'], 'w') as fp:
             json.dump(data_list, fp, indent=4)
-
 
     def clean_data_file(self):
         limit = (int)(dotenv.dotenv_values('.env')['DATA_LIST_LIMIT'])
@@ -31,6 +30,14 @@ class File_service:
         with open(dotenv.dotenv_values('.env')['JSON_DATA_PATH'], 'w') as fp:
             json.dump(data_list, fp, indent=4)
 
+    def clear_data_from_user(self, user_id):
+        with open(dotenv.dotenv_values('.env')['JSON_DATA_PATH'], 'r') as rd:
+            data_list: list = json.load(rd)
+
+            filtered_data_list = [record for record in data_list if record['from']['id'] != user_id]
+
+            with open(dotenv.dotenv_values('.env')['JSON_DATA_PATH'], 'w') as f:
+                json.dump(filtered_data_list, f, indent=4)
 
     def record_update(self, msg):
         if os.path.exists(dotenv.dotenv_values('.env')['JSON_DATA_PATH']):
@@ -42,7 +49,7 @@ class File_service:
             with open(dotenv.dotenv_values('.env')['JSON_DATA_PATH'], 'w') as f:
                 json.dump(data_list, f, indent=4)
 
-            #TODO cleanup after conducting cleanup
+            # TODO cleanup after conducting cleanup
             try:
                 self.clean_data_file()
             except:
@@ -55,12 +62,11 @@ class File_service:
             with open(dotenv.dotenv_values('.env')['JSON_DATA_PATH'], 'w') as f:
                 json.dump(data_list, f, indent=4)
 
-            #TODO cleanup after conducting cleanup
+            # TODO cleanup after conducting cleanup
             try:
                 self.clean_data_file()
             except:
                 self.full_data_clean()
-
 
     def get_last_command(self, user_id):
         data_extractor = dxtr.Data_extractor()
@@ -75,7 +81,6 @@ class File_service:
                             return data_list[i]['text']
         return dotenv.dotenv_values('.env')['LAST_COMMAND_NOT_FOUND_ERROR_CODE']
 
-
     def create_photo_list_from_existing_files_in_directory(self, user_id):
         photo_list = []
         i = 1
@@ -86,7 +91,6 @@ class File_service:
             else:
                 break
         return photo_list
-
 
     def download_photo(self, user_id):
         bot = telepot.Bot(dotenv.dotenv_values('.env')['TOKEN'])
@@ -122,7 +126,6 @@ class File_service:
 
         return photos_list
 
-
     # when photo_list is ready
     def create_pdf_from_photo_list(self, user_id, photos_list: list, file_name):
         photos_count = len(photos_list)
@@ -138,11 +141,9 @@ class File_service:
 
         return f'{downloads_path}/{user_id}/{file_name}.pdf'
 
-
     def delete_directory(self, user_id):
         if os.path.exists(f'{downloads_path}/{user_id}'):
             shutil.rmtree(f'{downloads_path}/{user_id}/')
-
 
     def get_last_non_command_message_text(self, user_id):
         data_extractor = dxtr.Data_extractor()
@@ -155,6 +156,6 @@ class File_service:
                 if tmp_user_id == user_id:
                     if content_type == 'text':
                         if data_list[i]['text'] == "/ready":
-                            return data_list[i+1]['text']
+                            return data_list[i + 1]['text']
 
         return dotenv.dotenv_values('.env')['LAST_NON_COMMAND_NOT_FOUND_ERROR_CODE']
