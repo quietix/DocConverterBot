@@ -15,12 +15,14 @@ file_service = fl.File_service()
 interaction_handler = ih.Interaction_handler()
 data_extractor = dxtr.Data_extractor()
 
+
 def handle(msg):
     file_service.record_update(msg)
     interaction_handler.handle_interaction(msg)
 
 
-MessageLoop(bot, handle).run_as_thread()
+if __name__ == "__main__":
+    MessageLoop(bot, handle).run_as_thread()
 
-while 1:
-    time.sleep(10)
+    while 1:
+        time.sleep(10)
