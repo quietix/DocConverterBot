@@ -2,7 +2,7 @@ import dotenv
 from telepot.namedtuple import KeyboardButton, InlineKeyboardButton, ReplyKeyboardMarkup, ReplyKeyboardRemove
 import telepot
 
-
+dotenv.load_dotenv()
 bot = telepot.Bot(dotenv.dotenv_values('.env')['TOKEN'])
 
 class Response:

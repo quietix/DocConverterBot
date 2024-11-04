@@ -29,6 +29,7 @@ class Interaction_handler:
         if content_type == 'text':
             msg_text = data_extractor.get_message_text_safe(msg)
             if msg_text == dotenv.dotenv_values('.env')['CLEANUP_COMMAND']:
+                file_service.full_data_clean()
                 response.send_message(chat_id, "DATA WAS CLEANED UP")
                 return
 

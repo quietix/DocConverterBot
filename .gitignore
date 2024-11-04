@@ -178,3 +178,5 @@ data.json
 # Local Netlify folder
 .netlify
 /venv/
+
+output/
